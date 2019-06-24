@@ -1,5 +1,6 @@
 import os
 import cv2
+import sys
 import math
 import skimage
 import numpy as np
@@ -10,8 +11,26 @@ from skimage.measure import compare_psnr
 
 from model import find_medians
 
+'''
+Generating metrics for evaluation.
+Usage: 
+    python metrics.py model_location src_img_dir
+Args:
+    model_location: str, '../pretrained/median5Res32Decrease-185.hdf5' as default
+    src_img_dir: str, '../data/kodak/' as default
+'''
+
+# parse system arguments
+model_location = '../pretrained/median5Res32Decrease-185.hdf5'
+src_img_dir = '../data/kodak/'
+if len(sys.argv) > 1:
+    model_location = str(sys.argv[1])
+if len(sys.argv) > 2:
+    src_img_dir = str(sys.argv[2]) 
+print('Running metrics on {} using model {}'.format(src_img_dir, model_location))
+
 model = load_model(
-        'pretrained/median5Res32Decrease/unet_2d-185.hdf5', 
+        model_location, 
         custom_objects={
             'tf':tf, 
             'find_medians': find_medians,
@@ -19,15 +38,12 @@ model = load_model(
             })
 print('model loaded')
 
-src_img_dir = './pic/kodak/'
 n_img = 0
 sum_psnr3, sum_psnr5, sum_psnr7, sum_psnr9 = 0, 0, 0, 0
 for file_name in os.listdir(src_img_dir):
     if file_name.endswith(".png"):
         n_img += 1
         print(file_name)
-        if n_img > 30:
-            break
         fn = os.path.join(src_img_dir, file_name)
         src_img = cv2.imread(fn)
         img = np.asarray(src_img / 255.0, np.float)
@@ -36,7 +52,6 @@ for file_name in os.listdir(src_img_dir):
             gx0 = np.reshape(noisy_img, (1, *noisy_img.shape))
             Y = model.predict(gx0, verbose=0)
             result = np.asarray(Y[0,:,:,:], np.float)
-            # result = np.asarray(result * 255.0, np.uint8)
             if j == 0:
                 psnr3 = compare_psnr(img, result)
                 print('psnr 30%', psnr3)
