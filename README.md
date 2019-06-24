@@ -21,11 +21,11 @@ To appear
 
 ### Dataset
 
-**The training and validation datasets can be found in data directory, we use 91image as the training set, all others as validation sets**
+The training and validation datasets can be found in data directory, we use 91image as the training set, all others as validation sets
 
 ### Pretrained models
 
-**The pretrained models can be found in pretrained directory **
+The pretrained models can be found in pretrained directory
 
 ### Some inference results 
 
