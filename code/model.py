@@ -50,9 +50,9 @@ def fully_conv(pretrained_weights=None, input_size=(None, None, 3)):
 
     input_img = Input(shape=input_size, name='input_image')
     x5 = Lambda(median_pool2d, arguments={'k': 5}, 
-            output_shape=min_pool2d_output_shape)(input_img) 
+            output_shape=median_pool2d_output_shape)(input_img) 
     x5 = Lambda(median_pool2d, arguments={'k': 5}, 
-            output_shape=min_pool2d_output_shape)(x5) 
+            output_shape=median_pool2d_output_shape)(x5) 
     x = x5
     x = Conv2D(n_init_features, (3, 3), padding="same", kernel_initializer="he_normal")(x)
     x = PReLU(shared_axes=[1, 2])(x)
