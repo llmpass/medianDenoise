@@ -3,4 +3,4 @@ tensorflow-gpu==1.2.0
 tensorflow-tensorboard==0.4.0
 keras==2.1.5
 scikit-image==0.13.1
-opencv-python==3.3.0
+opencv-python==3.4.7.28
