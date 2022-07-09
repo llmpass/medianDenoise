@@ -13,7 +13,15 @@ to install all required python packages.
 
 ### Publication
 
-To appear
+@article{liang2021convolutional,
+  title={Convolutional neural network with median layers for denoising salt-and-pepper contaminations},
+  author={Liang, Luming and Deng, Seng and Gueguen, Lionel and Wei, Mingqiang and Wu, Xinming and Qin, Jing},
+  journal={Neurocomputing},
+  volume={442},
+  pages={26--35},
+  year={2021},
+  publisher={Elsevier}
+}
 
 ### Architecture
 
